@@ -1,5 +1,5 @@
 
 public interface IIFCorre {
-    public int patas = 2;
+    public int patas = 4;
     public void correr();
 }
