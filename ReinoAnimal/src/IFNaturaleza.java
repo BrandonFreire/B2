@@ -132,21 +132,17 @@ public class IFNaturaleza {
     private void escribirDatosEnArchivoAve(FileWriter writer, String tipo, IFAve ave) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        // Agregar información común para todas las aves
         stringBuilder.append(String.format("%s, ", tipo));
         
-        // Agregar información específica de IFPico
         IFPico pico = ave.getPico();
         stringBuilder.append(pico != null ? pico.getColor() : "N/A").append(",");
         stringBuilder.append(pico != null ? pico.getTamanio() : "N/A").append(",");
 
-        // Agregar información específica de IFPluma
         IFPluma pluma = ave.getPluma();
         stringBuilder.append(pluma != null ? pluma.getColor() : "N/A").append(",");
         stringBuilder.append(pluma != null ? pluma.getTamanio() : "N/A").append(",");
         stringBuilder.append(pluma != null ? pluma.getForma() : "N/A");
 
-        // Agregar una nueva línea al archivo
         writer.append(stringBuilder.toString()).append("\n");
     }
     
@@ -182,22 +178,17 @@ public class IFNaturaleza {
     private void escribirDatosMamifero(FileWriter writer, String tipo, IFMamifero mamifero) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        // Agregar información común para todas las aves
         stringBuilder.append(String.format("%s, ", tipo));
         
-        // Agregar información específica de IFPico
         IFGlandulaMamaria glandulaMamaria = mamifero.getGlandulaMamaria();
         stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getTamanio() : "N/A").append(",");
         stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getColor() : "N/A").append(",");
         stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getForma() : "N/A").append(",");
 
-
-        // Agregar información específica de IFPluma
         IFPelaje pelaje = mamifero.getPelaje();
         stringBuilder.append(pelaje != null ? pelaje.getColor() : "N/A").append(",");
         stringBuilder.append(pelaje != null ? pelaje.getTextura() : "N/A");
 
-        // Agregar una nueva línea al archivo
         writer.append(stringBuilder.toString()).append("\n");
     }
 
@@ -233,22 +224,17 @@ public class IFNaturaleza {
     private void escribirDatosAnfibio(FileWriter writer, String tipo, IFAnfibio anfibio) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        // Agregar información común para todas las aves
         stringBuilder.append(String.format("%s, ", tipo));
         
-        // Agregar información específica de IFPico
         IFPielPermeable pielPermeable = anfibio.getPielPermeable();
         stringBuilder.append(pielPermeable != null ? pielPermeable.getStructura() : "N/A").append(",");
         stringBuilder.append(pielPermeable != null ? pielPermeable.getColor() : "N/A").append(",");
 
-        // Agregar información específica de IFPluma
         IFPatas patas = anfibio.getPatas();
         stringBuilder.append(patas != null ? patas.getForma() : "N/A").append(",");
         stringBuilder.append(patas != null ? patas.getTextura() : "N/A").append(",");
         stringBuilder.append(patas != null ? patas.getColor() : "N/A");
 
-
-        // Agregar una nueva línea al archivo
         writer.append(stringBuilder.toString()).append("\n");
     }
 
