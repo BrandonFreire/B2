@@ -1,37 +1,30 @@
 public class IFLeon extends IFMamifero implements IIFCorre{
-    public IFGlandulaMamaria glandulaMamaria;
-    public IFPelaje pelaje;
-
     /**
      * @param glandulaMamaria
      * @param pelaje
      */
-    public IFLeon(boolean esqueleto, IFPelaje pelaje) {
-        super(esqueleto, pelaje);
-
+    public IFLeon(boolean esqueleto) {
+        super(esqueleto);
     }
     
     void nacer(){
-        glandulaMamaria = new IFGlandulaMamaria();
-        pelaje = new IFPelaje();
-
         System.out.println("Soy un leon");
-        glandulaMamaria.desarrolloGlandulaMamaria(false);
-        glandulaMamaria.setForma("conica");
-        glandulaMamaria.setTamanio(3);
-        glandulaMamaria.setColor("");  
-        System.out.println("Tengo una glandula mamaria menos desarrollada de forma "+glandulaMamaria.getForma());
-        System.out.println("y de un tamanio "+glandulaMamaria.getTamanio()+" cm");
+        getGlandulaMamaria().desarrolloGlandulaMamaria(false);
+        getGlandulaMamaria().setForma("conica");
+        getGlandulaMamaria().setTamanio(3);
+        getGlandulaMamaria().setColor(null);  
+        System.out.println("Tengo una glandula mamaria menos desarrollada de forma "+getGlandulaMamaria().getForma());
+        System.out.println("y de un tamanio "+getGlandulaMamaria().getTamanio()+" cm");
         
-        pelaje.setColor("amarillo");
-        pelaje.setTextura("corta y suave");
-        System.out.println("Mi pelaje es "+pelaje.getColor());
-        System.out.println("y su textura es "+pelaje.getTextura());
+        getPelaje().setColor("amarillo");
+        getPelaje().setTextura("corta y suave");
+        System.out.println("Mi pelaje es "+getPelaje().getColor());
+        System.out.println("y su textura es "+getPelaje().getTextura());
 
         System.out.print("Ahora ");
         correr();
         //System.out.println("");
-        IFCebra comida = new IFCebra(true, pelaje);
+        IFCebra comida = new IFCebra(true);
         comida.devorado();
 
 
@@ -41,8 +34,4 @@ public class IFLeon extends IFMamifero implements IIFCorre{
     public void correr() {
         System.out.println("estoy corriendo");
     }
-    /**
-     * falta arraysslist
-     */
-
 }

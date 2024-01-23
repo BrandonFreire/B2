@@ -6,8 +6,8 @@ public class IFSalamandra extends IFAnfibio implements IIFNada, IIFCorre{
      * @param esqueleto
      * @param patas
      */
-    public IFSalamandra(boolean esqueleto, IFPatas patas) {
-        super(esqueleto, patas);
+    public IFSalamandra(boolean esqueleto) {
+        super(esqueleto);
     }
     /**
      * Metodo 
@@ -17,24 +17,24 @@ public class IFSalamandra extends IFAnfibio implements IIFNada, IIFCorre{
         patas = new IFPatas();
 
         System.out.println("Soy una salamandra");
-        pielPermeable.setStructura("respiración cutánea y la regulación del equilibrio hídrico");
-        pielPermeable.setColor("cambiante por mi habilidad para camuflarme");
-        System.out.println("Mi piel es de una estructura que permite la "+pielPermeable.getStructura());
-        System.out.println("y de un color "+pielPermeable.getColor());
+        getPielPermeable().setStructura("respiración cutánea y la regulación del equilibrio hídrico");
+        getPielPermeable().setColor("cambiante por mi habilidad para camuflarme");
+        System.out.println("Mi piel es de una estructura que permite la "+getPielPermeable().getStructura());
+        System.out.println("y de un color "+getPielPermeable().getColor());
 
-        patas.setForma("presentan almohadillas en cada dedo");
-        patas.setTextura("suave y humeda");
-        patas.setColor("color variado con patrones");
-        System.out.println("Mis patas: "+patas.getForma());
-        System.out.println("de una textura "+patas.getTextura());
-        System.out.println("y de un "+patas.getColor());
+        getPatas().setForma("presentan almohadillas en cada dedo");
+        getPatas().setTextura("suave y humeda");
+        getPatas().setColor("color variado con patrones");
+        System.out.println("Mis patas: "+getPatas().getForma());
+        System.out.println("de una textura "+getPatas().getTextura());
+        System.out.println("y de un "+getPatas().getColor());
 
         System.out.print("Ahora ");
         nadar();
         correr();
         pielPermeable.respirar();
 
-        IFRana ambiente = new IFRana(true, patas);
+        IFRana ambiente = new IFRana(true);
         ambiente.ambiente();
 
     }

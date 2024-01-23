@@ -41,39 +41,43 @@ public class IFNaturaleza {
         correcaminos = new IFCorrecaminos(true);
         System.out.println("* Nacimiento de un correcaminos");
         correcaminos.nacer();
-
         System.out.println("\n* Nacimiento de un pato");
         pato = new IFPato(true);
         pato.nacer();
-
         System.out.println("\n* Nacimiento de un halcon");
         halcon = new IFHalcon(true);
         halcon.nacer();
         
-        guardarEnArchivoCSV(correcaminos, "Correcaminos");
-        guardarEnArchivoCSV(pato, "Pato");
-        guardarEnArchivoCSV(halcon, "Halcon");
+        guardarEnArchivoAve(correcaminos, "Correcaminos");
+        guardarEnArchivoAve(pato, "Pato");
+        guardarEnArchivoAve(halcon, "Halcon");
 
         /**
          * Mamiferos
          */
-        IFPelaje pelaje = new IFPelaje();
         System.out.println("\n* Nacimiento de un leon");
-        leon = new IFLeon(true, pelaje);
+        leon = new IFLeon(true);
         leon.nacer();
         System.out.println("\n* Nacimiento de una cebra");
-        cebra = new IFCebra(true, pelaje);
+        cebra = new IFCebra(true);
         cebra.nacer();
+
+        guardarMamifero(leon, "Leon");
+        guardarMamifero(cebra, "Cebra");
+
         /**
          * Anfibios
          */
-        IFPatas patas = new IFPatas();
-        rana = new IFRana(true, patas);
+        rana = new IFRana(true);
         System.out.println("\n* Nacimiento de una rana");
         rana.nacer();
         System.out.println("\n* Nacimiento de una salamandra");
-        salamandra = new IFSalamandra(true, patas);
+        salamandra = new IFSalamandra(true);
         salamandra.nacer();
+
+        guardarAnfibio(rana, "Rana");
+        guardarAnfibio(salamandra, "Salamandra");
+
         /**
          * Peces
          */
@@ -97,11 +101,11 @@ public class IFNaturaleza {
     }
 
     /**
-     * Para guardar archivos
+     * Para guardar archivos de ave
      * @param ave
      * @param tipo
      */
-    public void guardarEnArchivoCSV(IFAve ave, String tipo) {
+    public void guardarEnArchivoAve(IFAve ave, String tipo) {
         String carpetaArchivos = "dataFile";
         String nombreArchivo = Paths.get(carpetaArchivos, "ave.csv").toString();
 
@@ -111,7 +115,7 @@ public class IFNaturaleza {
                 writer.append("Tipo,PicoColor,PicoTamanio,PlumaColor,PlumaTamanio,PlumaForma\n");
             }
 
-            escribirDatosEnArchivo(writer, tipo, ave);
+            escribirDatosEnArchivoAve(writer, tipo, ave);
 
             System.out.println("Datos guardados de: "+ tipo + " guardados en el archivo" + nombreArchivo);
         } catch (IOException e) {
@@ -119,13 +123,13 @@ public class IFNaturaleza {
         }
     }
     /**
-     * Para escribir en el archivo 
+     * Para escribir en el archivo de ave
      * @param writer
      * @param tipo
      * @param ave
      * @throws IOException
      */
-    private void escribirDatosEnArchivo(FileWriter writer, String tipo, IFAve ave) throws IOException {
+    private void escribirDatosEnArchivoAve(FileWriter writer, String tipo, IFAve ave) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
         // Agregar información común para todas las aves
@@ -147,10 +151,116 @@ public class IFNaturaleza {
     }
     
     /**
+     * para guardar datos mamifero
+     * @param mamifero
+     * @param tipo
+     */
+    public void guardarMamifero(IFMamifero mamifero, String tipo) {
+        String carpetaArchivos = "dataFile";
+        String nombreArchivo = Paths.get(carpetaArchivos, "mamifero.csv").toString();
+
+        try (FileWriter writer = new FileWriter(nombreArchivo,true)) {
+
+            if (Files.size(Paths.get(nombreArchivo)) == 0) {
+                writer.append("Tipo,GlandulaTamaño,GlandulaColor,GlandulaForma,PelajeColor,PelajeTextura\n");
+            }
+
+            escribirDatosMamifero(writer, tipo, mamifero);
+
+            System.out.println("Datos guardados de: "+ tipo + " guardados en el archivo" + nombreArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * para escribir datos del mamifero
+     * @param writer
+     * @param tipo
+     * @param mamifero
+     * @throws IOException
+     */
+    private void escribirDatosMamifero(FileWriter writer, String tipo, IFMamifero mamifero) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Agregar información común para todas las aves
+        stringBuilder.append(String.format("%s, ", tipo));
+        
+        // Agregar información específica de IFPico
+        IFGlandulaMamaria glandulaMamaria = mamifero.getGlandulaMamaria();
+        stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getTamanio() : "N/A").append(",");
+        stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getColor() : "N/A").append(",");
+        stringBuilder.append(glandulaMamaria != null ? glandulaMamaria.getForma() : "N/A").append(",");
+
+
+        // Agregar información específica de IFPluma
+        IFPelaje pelaje = mamifero.getPelaje();
+        stringBuilder.append(pelaje != null ? pelaje.getColor() : "N/A").append(",");
+        stringBuilder.append(pelaje != null ? pelaje.getTextura() : "N/A");
+
+        // Agregar una nueva línea al archivo
+        writer.append(stringBuilder.toString()).append("\n");
+    }
+
+    /**
+     * para anfibio
+     * @param anfibio
+     * @param tipo
+     */
+    public void guardarAnfibio(IFAnfibio anfibio, String tipo) {
+        String carpetaArchivos = "dataFile";
+        String nombreArchivo = Paths.get(carpetaArchivos, "anfibio.csv").toString();
+
+        try (FileWriter writer = new FileWriter(nombreArchivo,true)) {
+
+            if (Files.size(Paths.get(nombreArchivo)) == 0) {
+                writer.append("Tipo,PielEstructura,PielColor,PatasForma,PatasTextura,PatasColor\n");
+            }
+
+            escribirDatosAnfibio(writer, tipo, anfibio);
+
+            System.out.println("Datos guardados de: "+ tipo + " guardados en el archivo" + nombreArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 
+     * @param writer
+     * @param tipo
+     * @param anfibio
+     * @throws IOException
+     */
+    private void escribirDatosAnfibio(FileWriter writer, String tipo, IFAnfibio anfibio) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Agregar información común para todas las aves
+        stringBuilder.append(String.format("%s, ", tipo));
+        
+        // Agregar información específica de IFPico
+        IFPielPermeable pielPermeable = anfibio.getPielPermeable();
+        stringBuilder.append(pielPermeable != null ? pielPermeable.getStructura() : "N/A").append(",");
+        stringBuilder.append(pielPermeable != null ? pielPermeable.getColor() : "N/A").append(",");
+
+        // Agregar información específica de IFPluma
+        IFPatas patas = anfibio.getPatas();
+        stringBuilder.append(patas != null ? patas.getForma() : "N/A").append(",");
+        stringBuilder.append(patas != null ? patas.getTextura() : "N/A").append(",");
+        stringBuilder.append(patas != null ? patas.getColor() : "N/A");
+
+
+        // Agregar una nueva línea al archivo
+        writer.append(stringBuilder.toString()).append("\n");
+    }
+
+
+
+
+
+    /**
      * 
      * @return
      */
-    	public static ArrayList<IFAve> getPesonaFile() {
+    	/*public static ArrayList<IFAve> getPesonaFile() {
 		ArrayList<IFAve> personas = new ArrayList<>();
 		final String ARCHIVO	 = "dataFile\\personas.csv",
 					 SEPARADOR	 = ";";
@@ -167,6 +277,6 @@ public class IFNaturaleza {
 			System.out.println(e.getMessage());
 		} 
         return personas;
-	}
+	}*/
 }
 

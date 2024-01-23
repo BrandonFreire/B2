@@ -1,23 +1,27 @@
 public class IFCebra extends IFMamifero implements IIFCorre {
-    public IFGlandulaMamaria glandulaMamaria;
-    public IFPelaje pelaje;
-
-    public IFCebra(boolean esqueleto, IFPelaje pelaje) {
-        super(esqueleto, pelaje);
+    /**
+     * 
+     * @param esqueleto
+     * @param pelaje
+     */
+    public IFCebra(boolean esqueleto) {
+        super(esqueleto);
         
     }
 
     public void nacer(){
-        glandulaMamaria = new IFGlandulaMamaria();
-        pelaje = new IFPelaje();
-
         System.out.println("Soy una cebra");
-        glandulaMamaria.desarrolloGlandulaMamaria(true); //es hembra
-        glandulaMamaria.setColor("blanco");
-        glandulaMamaria.setForma("redondeada");
-        glandulaMamaria.setTamanio(10);
-        System.out.println("Tengo glandulas mamarias desarrolladas de forma "+glandulaMamaria.getForma());
-        System.out.println("y de un tamanio "+glandulaMamaria.getTamanio()+" cm");
+        getGlandulaMamaria().desarrolloGlandulaMamaria(true); //es hembra
+        getGlandulaMamaria().setColor("blanco");
+        getGlandulaMamaria().setForma("redondeada");
+        getGlandulaMamaria().setTamanio(10);
+        System.out.println("Tengo glandulas mamarias desarrolladas de forma "+getGlandulaMamaria().getForma());
+        System.out.println("y de un tamanio "+getGlandulaMamaria().getTamanio()+" cm");
+
+        getPelaje().setColor("blanco con lineas negras");
+        getPelaje().setTextura("suave y corta");
+        System.out.println("El color de mi pelaje es "+getPelaje().getColor());
+        System.out.println("y su textura es "+getPelaje().getTextura());
 
         System.out.print("Ahora ");
         correr();        
