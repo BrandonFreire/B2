@@ -1,35 +1,32 @@
 public class IFPato extends IFAve implements IIFVuela, IIFNada {
-    public IFPico pico;
-    public IFPluma pluma;
-
-    public IFPato(boolean esqueleto, IFPluma pluma) {
-        super(esqueleto, pluma);
-        
+    /**
+     * Constructor
+     * @param esqueleto
+     * @param pluma
+     */
+    public IFPato(boolean esqueleto) {
+        super(esqueleto);
     }
-
     void nacer() {
-        pico = new IFPico();
-        pluma = new IFPluma();
-
         System.out.println("Soy un pato");
 
-        pico.setColor("amarillo");
-        pico.setTamanio(10);
-        System.out.println("El color de mi pico es "+pico.getColor());
-        System.out.println("El tamanio de mi pico es "+pico.getTamanio()+" cm");
+        getPico().setColor("amarillo");
+        getPico().setTamanio(10);
+        System.out.println("El color de mi pico es " + getPico().getColor());
+        System.out.println("El tamanio de mi pico es " + getPico().getTamanio() + " cm");
 
-        pluma.setColor("verde");
-        pluma.setForma("comun");
-        pluma.setTamanio(3);
+        getPluma().setColor("verde");
+        getPluma().setForma("comun");
+        getPluma().setTamanio(5);
 
-        System.out.println("El color de mis plumas es "+pluma.getColor());
-        System.out.println("El tamanio de mis plumas es "+pluma.getTamanio()+" cm");
+        System.out.println("El color de mis plumas es " + getPluma().getColor());
+        System.out.println("El tamanio de mis plumas es " + getPluma().getTamanio() + " cm");
 
-        System.out.println("Ahora ");
+        System.out.print("Ahora ");
         volar();
         nadar();
-        pico.comer();
-        pico.tomarAgua();
+        getPico().comer();
+        getPico().tomarAgua();
     }
 
     @Override

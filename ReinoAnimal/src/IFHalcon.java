@@ -1,37 +1,32 @@
 public class IFHalcon extends IFAve implements IIFVuela{
-    public IFPico pico;
-    public IFPluma pluma;
-    
     /**
      * Constructor
      * @param esqueleto
      * @param pluma
      */
-    public IFHalcon(boolean esqueleto, IFPluma pluma) {
-        super(esqueleto, pluma);
+    public IFHalcon(boolean esqueleto) {
+        super(esqueleto);
     }
 
     void nacer() {
         System.out.println("Soy un halcon");
-        pico = new IFPico();
-        pluma = new IFPluma();
 
-        pico.comer();
-        pico.tomarAgua();
-        pico.setColor("amarillo con la punta negra");
-        pico.setTamanio(8);
-        System.out.println("El color de mi pico es "+pico.getColor());
-        System.out.println("El tamanio de mi pico es "+pico.getTamanio()+" cm");
+        getPico().setColor("amarillo con la punta negra");
+        getPico().setTamanio(8);
+        System.out.println("El color de mi pico es "+getPico().getColor());
+        System.out.println("El tamanio de mi pico es "+getPico().getTamanio()+" cm");
 
-        pluma.setColor("gris");
-        pluma.setForma("comun");
-        pluma.setTamanio(4);
+        getPluma().setColor("gris");
+        getPluma().setForma("comun");
+        getPluma().setTamanio(4);
 
-        System.out.println("El color de mis plumas es "+pluma.getColor());
-        System.out.println("El tamanio de mis plumas es "+pluma.getTamanio()+" cm");
+        System.out.println("El color de mis plumas es "+getPluma().getColor());
+        System.out.println("El tamanio de mis plumas es "+getPluma().getTamanio()+" cm");
 
         System.out.print("Ahora ");
         volar();
+        getPico().comer();
+        getPico().tomarAgua();
     }
 
     @Override

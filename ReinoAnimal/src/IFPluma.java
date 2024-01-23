@@ -29,6 +29,4 @@ public class IFPluma {
     public void setForma(String forma) {
         this.forma = forma;
     }
-
-
 }

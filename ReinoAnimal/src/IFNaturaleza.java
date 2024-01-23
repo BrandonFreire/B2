@@ -1,3 +1,11 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+//import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 public class IFNaturaleza {
     /**
      * Aves
@@ -25,28 +33,34 @@ public class IFNaturaleza {
      */
     public static IFSerpienteDeCascabel serpienteDeCascabel;
     public static IFLargartoDeColaLarga largartoDeColaLarga;
-    
-    public void genesis(){
+
+    public void genesis() {
         /**
          * Aves
          */
-        IFPluma pluma = new IFPluma();
-        correcaminos = new IFCorrecaminos(true, pluma);
+        correcaminos = new IFCorrecaminos(true);
         System.out.println("* Nacimiento de un correcaminos");
         correcaminos.nacer();
+
         System.out.println("\n* Nacimiento de un pato");
-        pato = new IFPato(true, pluma);
+        pato = new IFPato(true);
         pato.nacer();
+
         System.out.println("\n* Nacimiento de un halcon");
-        halcon = new IFHalcon(true, pluma);
+        halcon = new IFHalcon(true);
         halcon.nacer();
+        
+        guardarEnArchivoCSV(correcaminos, "Correcaminos");
+        guardarEnArchivoCSV(pato, "Pato");
+        guardarEnArchivoCSV(halcon, "Halcon");
+
         /**
          * Mamiferos
          */
         IFPelaje pelaje = new IFPelaje();
         System.out.println("\n* Nacimiento de un leon");
         leon = new IFLeon(true, pelaje);
-        leon.nacer(); 
+        leon.nacer();
         System.out.println("\n* Nacimiento de una cebra");
         cebra = new IFCebra(true, pelaje);
         cebra.nacer();
@@ -80,6 +94,79 @@ public class IFNaturaleza {
         largartoDeColaLarga = new IFLargartoDeColaLarga(true, camuflajeReptil);
         System.out.println("\n* Nacimiento de un lagarto de cola larga");
         largartoDeColaLarga.nacer();
-
     }
+
+    /**
+     * Para guardar archivos
+     * @param ave
+     * @param tipo
+     */
+    public void guardarEnArchivoCSV(IFAve ave, String tipo) {
+        String carpetaArchivos = "dataFile";
+        String nombreArchivo = Paths.get(carpetaArchivos, "ave.csv").toString();
+
+        try (FileWriter writer = new FileWriter(nombreArchivo,true)) {
+
+            if (Files.size(Paths.get(nombreArchivo)) == 0) {
+                writer.append("Tipo,PicoColor,PicoTamanio,PlumaColor,PlumaTamanio,PlumaForma\n");
+            }
+
+            escribirDatosEnArchivo(writer, tipo, ave);
+
+            System.out.println("Datos guardados de: "+ tipo + " guardados en el archivo" + nombreArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Para escribir en el archivo 
+     * @param writer
+     * @param tipo
+     * @param ave
+     * @throws IOException
+     */
+    private void escribirDatosEnArchivo(FileWriter writer, String tipo, IFAve ave) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Agregar información común para todas las aves
+        stringBuilder.append(String.format("%s, ", tipo));
+        
+        // Agregar información específica de IFPico
+        IFPico pico = ave.getPico();
+        stringBuilder.append(pico != null ? pico.getColor() : "N/A").append(",");
+        stringBuilder.append(pico != null ? pico.getTamanio() : "N/A").append(",");
+
+        // Agregar información específica de IFPluma
+        IFPluma pluma = ave.getPluma();
+        stringBuilder.append(pluma != null ? pluma.getColor() : "N/A").append(",");
+        stringBuilder.append(pluma != null ? pluma.getTamanio() : "N/A").append(",");
+        stringBuilder.append(pluma != null ? pluma.getForma() : "N/A");
+
+        // Agregar una nueva línea al archivo
+        writer.append(stringBuilder.toString()).append("\n");
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    	public static ArrayList<IFAve> getPesonaFile() {
+		ArrayList<IFAve> personas = new ArrayList<>();
+		final String ARCHIVO	 = "dataFile\\personas.csv",
+					 SEPARADOR	 = ";";
+		try {
+			List<String> allLines = Files.readAllLines(Paths.get(ARCHIVO));
+			for (String line : allLines) {
+				String[] personaFile = line.split(SEPARADOR);
+
+				personas.add(new IFAve(   personaFile[0], 
+                                            personaFile[1],
+                                            Integer.valueOf(personaFile[2])));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} 
+        return personas;
+	}
 }
+
